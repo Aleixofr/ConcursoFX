@@ -1,0 +1,75 @@
+/* General Styles */
+.root {
+    -fx-background-color: #f4f4f4; /* Fondo general */
+    -fx-font-family: "Arial", sans-serif; /* Fuente general */
+}
+
+/* Botones */
+.button {
+    -fx-background-color: #4CAF50; /* Fondo verde */
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-font-size: 12px; /* Tamaño de fuente */
+    -fx-padding: 5px;
+    -fx-border-radius: 5px; /* Bordes redondeados */
+    -fx-background-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #45a049; /* Fondo más oscuro al pasar el ratón */
+}
+
+.button:pressed {
+    -fx-background-color: #388E3C; /* Fondo más oscuro al presionar */
+}
+
+/* Campos de Texto */
+.text-field {
+    -fx-border-color: #cccccc; /* Borde gris */
+    -fx-border-radius: 5px; /* Bordes redondeados */
+    -fx-padding: 5px;
+    -fx-font-size: 12px;
+}
+
+.text-field:focused {
+    -fx-border-color: #4CAF50; /* Borde verde al enfocar */
+    -fx-background-color: #ffffff; /* Fondo blanco */
+}
+
+/* Listas */
+.list-view {
+    -fx-border-color: #e0e0e0; /* Borde claro */
+    -fx-background-color: #ffffff; /* Fondo blanco */
+    -fx-padding: 5px;
+    -fx-font-size: 12px;
+    -fx-border-radius: 5px; /* Bordes redondeados */
+    -fx-background-radius: 5px;
+}
+
+.list-view .cell {
+    -fx-text-fill: #333333; /* Texto gris oscuro */
+}
+
+.list-view .cell:selected {
+    -fx-background-color: #4CAF50; /* Fondo verde al seleccionar */
+    -fx-text-fill: white; /* Texto blanco al seleccionar */
+}
+
+/* Textos */
+.text {
+    -fx-font-size: 14px; /* Tamaño de fuente */
+    -fx-text-fill: #333333; /* Texto gris oscuro */
+}
+
+/* Estilo del texto principal */
+.text#tv_operacion {
+    -fx-font-size: 36px; /* Tamaño grande */
+    -fx-text-fill: #007BFF; /* Azul */
+    -fx-font-weight: bold; /* Negrita */
+    -fx-text-alignment: center;
+}
+
+.text#tv_crono {
+    -fx-font-size: 14px;
+    -fx-text-fill: #ff5722; /* Naranja */
+    -fx-text-alignment: right;
+}

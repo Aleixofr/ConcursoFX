@@ -8,15 +8,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.afro.concursofx.ConcursoView">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.afro.concursofx.controller.ConcursoController">
    <children>
       <SplitPane dividerPositions="0.2725752508361204" layoutX="1.0" layoutY="-1.0" prefHeight="407.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="209.0" prefWidth="160.0">
                <children>
-                  <Button fx:id="btn_jugar" layoutX="62.0" layoutY="359.0" mnemonicParsing="false" onAction="#iniciarJuego" text="Jugar" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="359.0" />
-                  <ListView fx:id="list_clasificacion" layoutY="8.0" prefHeight="340.0" prefWidth="158.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="8.0" />
+                  <Button fx:id="btn_jugar" layoutX="7.0" layoutY="359.0" mnemonicParsing="false" onAction="#actJugar" prefHeight="25.0" prefWidth="149.0" text="Jugar" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="359.0" />
+                  <ListView fx:id="list_clasificacion" layoutY="8.0" prefHeight="309.0" prefWidth="158.0" AnchorPane.bottomAnchor="81.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="8.0" />
+                  <TextField fx:id="tf_nombre" layoutX="6.0" layoutY="325.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -27,11 +27,16 @@
                      </font>
                   </Text>
                   <TextField fx:id="tf_resultado" layoutX="22.0" layoutY="342.0" prefHeight="25.0" prefWidth="245.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="165.0" AnchorPane.topAnchor="359.0" />
-                  <Button fx:id="btn_resolver" layoutX="279.0" layoutY="355.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="139.0" text="Resolver" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="279.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="359.0" />
+                  <Button fx:id="btn_resolver" layoutX="279.0" layoutY="355.0" mnemonicParsing="false" onAction="#actResolver" prefHeight="25.0" prefWidth="139.0" text="Resolver" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="279.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="359.0" />
                   <ListView fx:id="list_resultados" layoutX="25.0" layoutY="51.0" prefHeight="175.0" prefWidth="404.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
-                  <Text fx:id="tv_operacion" layoutX="14.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="404.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
+                  <Text fx:id="tv_operacion" layoutX="14.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="404.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
                      <font>
                         <Font size="36.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="tv_crono" layoutX="211.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tiempo" textAlignment="RIGHT" wrappingWidth="206.13671875" AnchorPane.bottomAnchor="146.486328125" AnchorPane.leftAnchor="211.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="233.0">
+                     <font>
+                        <Font size="14.0" />
                      </font>
                   </Text>
                </children>
