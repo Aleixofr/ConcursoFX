@@ -39,29 +39,43 @@ public class ConcursoController {
 
     private int puntos;
 
+    /**
+     * Metodo que se ejecuta al hacer clic en el boton "Jugar".
+     * Inicializa los puntos, genera una nueva operacion, y configura un cronometro de 30 segundos.
+     * Habilita y deshabilita los botones correspondientes segun el estado del cronometro.
+     *
+     * @action onClick - btnJugar
+     * @param event el evento de accion asociado al clic en el boton "Jugar".
+     */
     @FXML
     void actJugar(ActionEvent event) {
-        puntos = 0; // Reiniciar puntos al iniciar
+        // Reiniciar puntos al iniciar el juego
+        puntos = 0;
         generarNuevaOperacion();
 
         /**
-         * Cronometro
+         * Configuracion del Cronometro
          */
-        Cronometro.init(30);
+        Cronometro.init(30); // Inicializa el cronometro con 30 segundos
 
+        // Actualiza el texto del cronometro en cada tick
         Cronometro.setOnTick(() -> {
             tv_crono.setText("Tiempo restante: " + Cronometro.getTimeRemaining());
         });
 
+        // Acciones a realizar cuando el tiempo del cronometro se termina
         Cronometro.setOnFinish(() -> {
             tv_crono.setText("\u00a1Tiempo terminado!");
-            btn_resolver.setDisable(true);
-            btn_jugar.setDisable(false);
-            actualizarClasificacion();
+            btn_resolver.setDisable(true); // Deshabilitar el boton "Resolver"
+            btn_jugar.setDisable(false); // Habilitar el boton "Jugar"
+            actualizarClasificacion(); // Actualizar la clasificacion
         });
 
-        btn_resolver.setDisable(false);
-        btn_jugar.setDisable(true);
+        // Configurar estado inicial de los botones
+        btn_resolver.setDisable(false); // Habilitar el boton "Resolver"
+        btn_jugar.setDisable(true);    // Deshabilitar el boton "Jugar"
+
+        // Iniciar el cronometro
         Cronometro.start();
     }
 
