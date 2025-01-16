@@ -1,13 +1,19 @@
 package com.afro.concursofx.controller;
 
+import com.afro.concursofx.model.Constantes;
 import com.afro.concursofx.model.Operacion;
 import com.afro.concursofx.utils.Cronometro;
+import com.afro.concursofx.utils.PantallaUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class ConcursoController {
 
@@ -18,26 +24,62 @@ public class ConcursoController {
     private Button btn_resolver;
 
     @FXML
-    private ListView<String> list_resultados;
+    private ListView<String> list_clasificacion;
 
     @FXML
-    private ListView<String> list_clasificacion;
+    private ListView<String> list_resultados;
 
     @FXML
     private TextField tf_resultado;
 
     @FXML
-    private TextField tf_nombre;
+    private Text tv_crono;
 
     @FXML
     private Text tv_operacion;
 
     @FXML
-    private Text tv_crono;
+    private Text tv_usuario;
 
     private Operacion operacion;
 
     private int puntos;
+
+    private String usuario = "";
+
+    /**
+     * Este método permite inicializar los componentes que tienen algún tipo de dato
+     * Como es inyectado, se realiza de forma automática
+     */
+
+    @FXML
+    public void initialize(){
+
+    }
+
+    /**
+     * ESte método permite visualizar la pantalla que controla este controlador.
+     *
+     * @param stage se le pasa un stage
+     * @throws IOException se lanza una excepción de entrada/salida
+     */
+    public ConcursoController showEstaPantalla(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new PantallaUtils().showEstaPantalla(stage, Constantes.PAGINA_CONCURSO.getDescription(),Constantes.TITULO_CONCURSO.getDescription(),600,400);
+        //OBTENER EL CONTROLADOR DE ESTA VENTANA, PARA PODER REFRESCAR DATOS DE COMPONENTES
+        ConcursoController controller = fxmlLoader.getController();
+
+        return controller;
+    }
+
+    /**
+     * Actualiza el valor del campo textfield actual con el valor del textField de la primera pantalla
+     * @param text
+     */
+    public void setTextFromMain(String text) {
+        usuario = text.toUpperCase();
+        tv_usuario.setText("JUGANDO: " + usuario);
+    }
+
 
     /**
      * Metodo que se ejecuta al hacer clic en el boton "Jugar".
@@ -51,6 +93,8 @@ public class ConcursoController {
     void actJugar(ActionEvent event) {
         // Reiniciar puntos al iniciar el juego
         puntos = 0;
+
+        list_resultados.getItems().clear();
         generarNuevaOperacion();
 
         /**
@@ -127,6 +171,6 @@ public class ConcursoController {
     }
 
     private void actualizarClasificacion() {
-        list_clasificacion.getItems().add(tf_nombre.getText() + ": " + puntos);
+        list_clasificacion.getItems().add(usuario + ": " + puntos);
     }
 }

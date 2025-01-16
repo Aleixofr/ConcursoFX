@@ -4,6 +4,8 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -14,16 +16,25 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="209.0" prefWidth="160.0">
                <children>
+                  <ImageView fitHeight="400.0" fitWidth="432.0" pickOnBounds="true">
+                     <image>
+                        <Image url="file:D:\DAMDU208\AD\ConcursoFX\src\main\resources\images\img_concurso_bg.jpg" />
+                     </image>
+                  </ImageView>
                   <Button fx:id="btn_jugar" layoutX="7.0" layoutY="359.0" mnemonicParsing="false" onAction="#actJugar" prefHeight="25.0" prefWidth="149.0" text="Jugar" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="359.0" />
-                  <ListView fx:id="list_clasificacion" layoutY="8.0" prefHeight="309.0" prefWidth="158.0" AnchorPane.bottomAnchor="81.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="8.0" />
-                  <TextField fx:id="tf_nombre" layoutX="6.0" layoutY="325.0" />
+                  <ListView fx:id="list_clasificacion" layoutY="8.0" prefHeight="345.0" prefWidth="158.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="8.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Text layoutX="13.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Calculator" wrappingWidth="404.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+                  <ImageView fitHeight="400.0" fitWidth="432.0" pickOnBounds="true">
+                     <image>
+                        <Image url="file:D:\DAMDU208\AD\ConcursoFX\src\main\resources\images\img_concurso_bg.jpg" />
+                     </image>
+                  </ImageView>
+                  <Text fx:id="tv_usuario" layoutX="13.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Calculator" wrappingWidth="404.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="24.0" />
                      </font>
                   </Text>
                   <TextField fx:id="tf_resultado" layoutX="22.0" layoutY="342.0" prefHeight="25.0" prefWidth="245.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="165.0" AnchorPane.topAnchor="359.0" />
@@ -31,12 +42,12 @@
                   <ListView fx:id="list_resultados" layoutX="25.0" layoutY="51.0" prefHeight="175.0" prefWidth="404.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
                   <Text fx:id="tv_operacion" layoutX="14.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="404.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
                      <font>
-                        <Font size="36.0" />
+                        <Font name="System Bold" size="36.0" />
                      </font>
                   </Text>
-                  <Text fx:id="tv_crono" layoutX="211.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tiempo" textAlignment="RIGHT" wrappingWidth="206.13671875" AnchorPane.bottomAnchor="146.486328125" AnchorPane.leftAnchor="211.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="233.0">
+                  <Text fx:id="tv_crono" fill="RED" layoutX="211.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tiempo" textAlignment="RIGHT" wrappingWidth="206.13671875" AnchorPane.bottomAnchor="146.486328125" AnchorPane.leftAnchor="211.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="233.0">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Text>
                </children>
