@@ -32,7 +32,9 @@ public enum Constantes {
     /**
      * Título de la ventana para la pantalla del concurso.
      */
-    TITULO_CONCURSO("CONCURSO MATEMATICO");
+    TITULO_CONCURSO("CONCURSO MATEMATICO"),
+
+    RUTA_IMG_BACKGROUND_LOGIN("@/res");
 
     // ATRIBUTOS
     private final String description;

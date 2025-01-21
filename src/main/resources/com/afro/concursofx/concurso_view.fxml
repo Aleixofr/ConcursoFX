@@ -18,7 +18,7 @@
                <children>
                   <ImageView fitHeight="400.0" fitWidth="432.0" pickOnBounds="true">
                      <image>
-                        <Image url="file:D:\DAMDU208\AD\ConcursoFX\src\main\resources\images\img_concurso_bg.jpg" />
+                        <Image url="@../../../images/img_concurso_bg.png" />
                      </image>
                   </ImageView>
                   <Button fx:id="btn_jugar" layoutX="7.0" layoutY="359.0" mnemonicParsing="false" onAction="#actJugar" prefHeight="25.0" prefWidth="149.0" text="Jugar" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="359.0" />
@@ -29,7 +29,7 @@
                <children>
                   <ImageView fitHeight="400.0" fitWidth="432.0" pickOnBounds="true">
                      <image>
-                        <Image url="file:D:\DAMDU208\AD\ConcursoFX\src\main\resources\images\img_concurso_bg.jpg" />
+                        <Image url="@../../../images/img_concurso_bg.png" />
                      </image>
                   </ImageView>
                   <Text fx:id="tv_usuario" layoutX="13.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Calculator" wrappingWidth="404.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">

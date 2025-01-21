@@ -14,7 +14,7 @@
    <children>
       <ImageView fx:id="inicio_bg" fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
          <image>
-            <Image url="file:D:\DAMDU208\AD\ConcursoFX\src\main\resources\images\img_inicio_bg.png" />
+            <Image url="@../../../images/img_inicio_bg.png" />
          </image>
       </ImageView>
       <Text fx:id="inicio_titulo" fill="WHITE" layoutX="198.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido" textAlignment="CENTER" wrappingWidth="205.0">
