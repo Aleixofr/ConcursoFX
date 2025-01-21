@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"com.afro.concursofx","l":"com.afro.concursofx"},{"m":"com.afro.concursofx","l":"com.afro.concursofx.controller"},{"m":"com.afro.concursofx","l":"com.afro.concursofx.model"},{"m":"com.afro.concursofx","l":"com.afro.concursofx.utils"}];updateSearchResults();
