@@ -13,6 +13,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Controlador para la pantalla inicial de la aplicación.
+ * Maneja la interacción del usuario con los elementos de la interfaz, como el botón para
+ * iniciar el juego y el campo de texto para ingresar el nombre del usuario.
+ */
 public class InicioController {
 
         @FXML
@@ -27,50 +32,44 @@ public class InicioController {
         @FXML
         private Text inicio_titulo;
 
-
         /**
-         * ESte método permite visualizar la pantalla que controla este controlador.
+         * Muestra la pantalla inicial controlada por esta clase.
          *
-         * @param stage se le pasa un stage
-         * @throws IOException se lanza una excepción de entrada/salida
+         * @param stage el escenario donde se mostrará la pantalla inicial.
+         * @return la instancia de {@link InicioController} asociada a la pantalla.
+         * @throws IOException si ocurre un error al cargar la pantalla.
          */
         public InicioController showEstaPantalla(Stage stage) throws IOException {
-                FXMLLoader fxmlLoader = new PantallaUtils().showEstaPantalla(stage, Constantes.PAGINA_INICIO.getDescription(),Constantes.TITULO_INICIO.getDescription(),600,400);
-                //OBTENER EL CONTROLADOR DE ESTA VENTANA, PARA PODER REFRESCAR DATOS DE COMPONENTES
-                InicioController controller = fxmlLoader.getController();
-
-                return controller;
+                FXMLLoader fxmlLoader = new PantallaUtils().showEstaPantalla(
+                        stage,
+                        Constantes.PAGINA_INICIO.getDescription(),
+                        Constantes.TITULO_INICIO.getDescription(),
+                        600,
+                        400
+                );
+                return fxmlLoader.getController();
         }
 
         /**
-         * Este método gestiona el evento del botón abrir la segunda pantalla
-         * y actualiza el componente texto de la segunda ventana a partir de
-         * lo que ha introducido el usuario en esta pantalla
-         * ESTO ES UN EJEMPLO DE PASAR DATOS DE UNA PANTALLA A OTRA
+         * Gestiona el evento del botón para abrir la segunda pantalla.
+         * Este método obtiene el texto ingresado por el usuario en el campo de texto,
+         * cierra la pantalla actual y abre la segunda pantalla pasando el nombre del usuario.
          *
-         * @param event
+         * @param event el evento de acción generado al hacer clic en el botón.
          */
         @FXML
         private void handleButtonAction(ActionEvent event) {
                 try {
-                        //OBTENEMOS EL STAGE DE ESTA PANTALLA A TRAVÉS DEL BOTÓN DEL ACTION Y CERRAMOS
+                        // Obtiene el escenario actual a través del botón y lo cierra.
                         Stage stage = new PantallaUtils().cerrarEstaPantalla(inicio_btn);
 
-                        //MOSTRAMOS LA SEGUNDA PANTALLA Y OBTENEMOS EL CONTROLADOR PARA REFRESCAR EL CAMPO TEXTO
+                        // Muestra la segunda pantalla y obtiene su controlador.
                         ConcursoController controller = new ConcursoController().showEstaPantalla(stage);
 
-                        //PASAMOS EL CONTENIDO QUE HA INTRODUCIDO EL USUARIO EN EL TEXTFIELD DE ESTA PANTALLA
-                        //A LA SEGUNDA PANTALLA
+                        // Pasa el nombre del usuario ingresado en el campo de texto a la segunda pantalla.
                         controller.setTextFromMain(inicio_tf_nombre.getText());
-
                 } catch (Exception e) {
                         e.printStackTrace();
                 }
         }
-
-
-
-
 }
-
-
