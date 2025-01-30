@@ -48,10 +48,39 @@
             <artifactId>atlantafx-base</artifactId>
             <version>2.0.0</version>
         </dependency>
+
+        <!-- H2 Database (para pruebas en memoria) -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.1.214</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase> <!-- La fase de empaquetado -->
+                        <goals>
+                            <goal>shade</goal> <!-- Crear el JAR "shaded" -->
+                        </goals>
+                        <configuration>
+                            <finalName>ConcursoFx</finalName> <!-- Nombre del JAR final -->
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.afro.concursofx.ConcursoApplication</mainClass> <!-- Asegúrate de poner la clase principal -->
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

@@ -5,7 +5,7 @@ import java.util.List;
 public interface DataBaseOperations {
 
     // Insertar un resultado
-    boolean insertarResultado(int id, String usuario, Long valor);
+    boolean insertarResultado(String usuario, int valor);
 
     // Obtener un resultado
     Clasificacion obtenerResultado(int id);

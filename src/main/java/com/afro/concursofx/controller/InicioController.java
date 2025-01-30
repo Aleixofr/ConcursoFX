@@ -68,6 +68,7 @@ public class InicioController {
 
                         // Pasa el nombre del usuario ingresado en el campo de texto a la segunda pantalla.
                         controller.setTextFromMain(inicio_tf_nombre.getText());
+                        controller.iniciarClasificacion();
                 } catch (Exception e) {
                         e.printStackTrace();
                 }

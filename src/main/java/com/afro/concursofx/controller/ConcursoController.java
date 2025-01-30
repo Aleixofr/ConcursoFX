@@ -1,5 +1,6 @@
 package com.afro.concursofx.controller;
 
+import com.afro.concursofx.model.Clasificacion;
 import com.afro.concursofx.model.Constantes;
 import com.afro.concursofx.model.Operacion;
 import com.afro.concursofx.utils.Cronometro;
@@ -14,6 +15,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Controlador principal para la pantalla del concurso.
@@ -108,7 +110,7 @@ public class ConcursoController {
             tv_crono.setText("¡Tiempo terminado!");
             btn_resolver.setDisable(true);
             btn_jugar.setDisable(false);
-            actualizarClasificacion();
+            actualizarClasificacion(usuario, puntos);
         });
 
         btn_resolver.setDisable(false);
@@ -173,10 +175,34 @@ public class ConcursoController {
         tv_operacion.setText(texto);
     }
 
+    public void iniciarClasificacion() {
+        Clasificacion clasificacion = new Clasificacion();
+
+        List<Clasificacion> clasificacionList = clasificacion.obtenerTodosResultados();
+
+        list_clasificacion.getItems().clear(); // Limpiar antes de actualizar
+
+        for (Clasificacion c : clasificacionList) {
+            String usuario = c.getUsuario();
+            String puntos = c.getValor();
+            list_clasificacion.getItems().add(usuario + ": " + puntos);
+        }
+    }
+
     /**
-     * Actualiza la lista de clasificación con el nombre del usuario y los puntos obtenidos.
+     * Inserta un nuevo resultado en la base de datos y actualiza la lista de clasificación.
      */
-    private void actualizarClasificacion() {
-        list_clasificacion.getItems().add(usuario + ": " + puntos);
+    private void actualizarClasificacion(String usuario, int puntos) {
+        Clasificacion clasificacion = new Clasificacion();
+
+        // Intentar insertar en la base de datos
+        boolean resultadoInsertado = clasificacion.insertarResultado(usuario, puntos);
+
+        if (resultadoInsertado) {
+            System.out.println("Resultado insertado correctamente.");
+            iniciarClasificacion(); // Refrescar la lista
+        } else {
+            System.out.println("Error al insertar resultado en la base de datos.");
+        }
     }
 }

@@ -10,11 +10,20 @@ public class Clasificacion implements  DataBaseOperations{
     String usuario;
     String valor;
 
+
     public Clasificacion(int id, String usuario, String valor) {
         this.id = id;
         this.usuario = usuario;
         this.valor = valor;
     }
+
+    public Clasificacion() {
+    }
+
+
+    /**
+     * Getters & Setters
+     */
 
     public int getId() {
         return id;
@@ -43,17 +52,17 @@ public class Clasificacion implements  DataBaseOperations{
     //Override DataBaseOperations
 
     @Override
-    public boolean insertarResultado(int id, String usuario, Long valor) {
+    public boolean insertarResultado(String usuario, int valor) {
 
         // Conectar a la base de datos y realizar la inserción
-        try (Connection conn = DriverManager.getConnection(DDBBQuery.URL_DATABASE.getDescripcion())) {
+        try (Connection conn = DriverManager.getConnection(DDBBQuery.URL_DATABASE.get())) {
 
             /**
-             * @QUERY_INSERT_RESULTADO -- USUARIO, VALOR
+             * @Query QUERY_INSERT_RESULTADO
              */
-            try (PreparedStatement pstmt = conn.prepareStatement(DDBBQuery.QUERY_INSERT_RESULTADO.getDescripcion())) {
+            try (PreparedStatement pstmt = conn.prepareStatement(DDBBQuery.QUERY_INSERT_RESULTADO.get())) {
                 pstmt.setString(1, usuario);
-                pstmt.setString(2, valor.toString());
+                pstmt.setString(2, String.valueOf(valor));
 
                 // Ejecutar la inserción
                 int filasAfectadas = pstmt.executeUpdate();
@@ -76,9 +85,12 @@ public class Clasificacion implements  DataBaseOperations{
         // Conexión a la base de datos y ejecución de la consulta
         try {
 
-            Connection conn = DriverManager.getConnection(DDBBQuery.URL_DATABASE.getDescripcion());
+            Connection conn = DriverManager.getConnection(DDBBQuery.URL_DATABASE.get());
 
-            try (PreparedStatement pstmt = conn.prepareStatement(DDBBQuery.QUERY_SELECT_W_ID_RESULTADO.getDescripcion())) {
+            /**
+             * @Query QUERY_SELECT_W_ID_RESULTADO
+             */
+            try (PreparedStatement pstmt = conn.prepareStatement(DDBBQuery.QUERY_SELECT_W_ID_RESULTADO.get())) {
                 pstmt.setString(1, String.valueOf(id));
 
                 ResultSet rs = pstmt.executeQuery();
@@ -107,9 +119,12 @@ public class Clasificacion implements  DataBaseOperations{
         // Conexión a la base de datos y ejecución de la consulta
         try {
 
-            Connection conn = DriverManager.getConnection(DDBBQuery.URL_DATABASE.getDescripcion());
+            Connection conn = DriverManager.getConnection(DDBBQuery.URL_DATABASE.get());
 
-            try (PreparedStatement pstmt = conn.prepareStatement(DDBBQuery.QUERY_SELECT_W_USUARIO_RESULTADO.getDescripcion())) {
+            /**
+             * @Query QUERY_SELECT_W_USUARIO_RESULTADO
+             */
+            try (PreparedStatement pstmt = conn.prepareStatement(DDBBQuery.QUERY_SELECT_W_USUARIO_RESULTADO.get())) {
                 pstmt.setString(1, usuario);
 
                 ResultSet rs = pstmt.executeQuery();
@@ -132,62 +147,42 @@ public class Clasificacion implements  DataBaseOperations{
 
     @Override
     public boolean eliminarResultado(int id) {
-        return false;
+        return true;
     }
 
     @Override
     public List<Clasificacion> obtenerTodosResultados() {
 
         List<Clasificacion> lista = new ArrayList<>();
+        Clasificacion resultado;
 
         try {
 
-            Connection conn = DriverManager.getConnection(DDBBQuery.URL_DATABASE.getDescripcion());
-            PreparedStatement pstmt = conn.prepareStatement(DDBBQuery.QUERY_SELECT_ALL_RESULTADO.getDescripcion());
+            Connection conn = DriverManager.getConnection(DDBBQuery.URL_DATABASE.get());
+
+            /**
+             * @Query QUERY_SELECT_ALL_RESULTADO
+             */
+            PreparedStatement pstmt = conn.prepareStatement(DDBBQuery.QUERY_SELECT_ALL_RESULTADO.get());
 
             // Ejecutar la consulta
             ResultSet rs = pstmt.executeQuery();
 
             // Verificar si el usuario fue encontrado
             while (rs.next()) {
-                // Obtener los valores del resultado
-                String nombre = rs.getString("nombre");
-                String pwd = rs.getString("pwd");
-                // Mostrar los resultados
-                System.out.println("Usuario: " + nombre);
-                System.out.println("Contraseña: " + pwd);
+                resultado = new Clasificacion(
+                        rs.getInt("id"),
+                        rs.getString("usuario"),
+                        rs.getString("valor")
+                );
+
+                lista.add(resultado);
             }
 
         } catch (SQLException e) {
             System.out.println("Error al conectar con la base de datos: " + e.getMessage());
         }
 
-
-
-
-        // Conexión a la base de datos y ejecución de la consulta
-        try {
-
-            Connection conn = DriverManager.getConnection(DDBBQuery.URL_DATABASE.getDescripcion());
-
-            PreparedStatement pstmt = conn.prepareStatement(DDBBQuery.QUERY_SELECT_ALL_RESULTADO.getDescripcion());
-                pstmt.setString(1, usuario);
-
-                ResultSet rs = pstmt.executeQuery();
-
-                // Verificar si el usuario fue encontrado
-                if(rs.next()) {
-                    resultado = new Clasificacion(
-                            rs.getInt("id"),
-                            rs.getString("usuario"),
-                            rs.getString("valor")
-                    );
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al conectar con la base de datos: " + e.getMessage());
-        }
-
-        return resultado;
+        return lista;
     }
 }
