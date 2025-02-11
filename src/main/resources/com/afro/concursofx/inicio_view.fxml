@@ -10,6 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.layout.HBox?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.afro.concursofx.controller.InicioController">
    <children>
       <ImageView fx:id="inicio_bg" fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
@@ -32,5 +33,15 @@
             <Button fx:id="inicio_btn" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="268.0" text="INICIAR" textAlignment="CENTER" />
          </children>
       </VBox>
+
+      <HBox fx:id="errorBox" layoutX="0" layoutY="400" prefWidth="600.0" prefHeight="50.0"
+            style="-fx-background-color: red; -fx-alignment: center; -fx-padding: 10;">
+         <Text fx:id="inicio_error" fill="WHITE" text="Por favor, ingresa tu nombre."
+               textAlignment="CENTER" visible="false">
+            <font>
+               <Font name="Arial" size="14.0" />
+            </font>
+         </Text>
+      </HBox>
    </children>
 </AnchorPane>

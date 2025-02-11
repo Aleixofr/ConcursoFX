@@ -2,14 +2,17 @@ package com.afro.concursofx.controller;
 
 import com.afro.concursofx.model.Constantes;
 import com.afro.concursofx.utils.PantallaUtils;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -31,6 +34,48 @@ public class InicioController {
 
         @FXML
         private Text inicio_titulo;
+
+        @FXML
+        private Text inicio_error;
+
+        @FXML
+        private HBox errorBox; // Panel de error
+
+        /**
+         * Muestra el cuadro de error con una animación desde abajo.
+         */
+        private void mostrarError(String mensaje) {
+                inicio_error.setText(mensaje);
+                inicio_error.setVisible(true);
+
+                // Animación para mostrar el error
+                TranslateTransition transition = new TranslateTransition(Duration.millis(300), errorBox);
+                transition.setFromY(50);
+                transition.setToY(0);
+                errorBox.setVisible(true);
+                transition.play();
+        }
+
+        /**
+         * Restablece el estado de la pantalla inicial.
+         */
+        private void resetEstado() {
+                inicio_tf_nombre.clear();  // Borrar el nombre anterior
+                ocultarError();  // Ocultar mensajes de error
+        }
+
+        /**
+         * Oculta el cuadro de error con una animación.
+         */
+        private void ocultarError() {
+                if (errorBox.isVisible()) {
+                        TranslateTransition transition = new TranslateTransition(Duration.millis(300), errorBox);
+                        transition.setFromY(0);
+                        transition.setToY(50);
+                        transition.setOnFinished(event -> errorBox.setVisible(false));
+                        transition.play();
+                }
+        }
 
         /**
          * Muestra la pantalla inicial controlada por esta clase.
@@ -59,6 +104,15 @@ public class InicioController {
          */
         @FXML
         private void handleButtonAction(ActionEvent event) {
+                String nombreUsuario = inicio_tf_nombre.getText().trim();
+
+                if (nombreUsuario.isEmpty()) {
+                        mostrarError("Por favor, ingresa tu nombre.");
+                        return;
+                }
+
+                ocultarError(); // Si el usuario ya ingresó el nombre, oculta el error.
+
                 try {
                         // Obtiene el escenario actual a través del botón y lo cierra.
                         Stage stage = new PantallaUtils().cerrarEstaPantalla(inicio_btn);

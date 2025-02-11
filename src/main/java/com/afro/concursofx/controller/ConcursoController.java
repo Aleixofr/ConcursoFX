@@ -3,6 +3,7 @@ package com.afro.concursofx.controller;
 import com.afro.concursofx.model.Clasificacion;
 import com.afro.concursofx.model.Constantes;
 import com.afro.concursofx.model.Operacion;
+import com.afro.concursofx.utils.AlertUtils;
 import com.afro.concursofx.utils.Cronometro;
 import com.afro.concursofx.utils.PantallaUtils;
 import javafx.event.ActionEvent;
@@ -63,6 +64,7 @@ public class ConcursoController {
     @FXML
     public void initialize() {
         // Método vacío, preparado para inicialización futura si es necesario.
+        tf_resultado.setOnAction(event -> actResolver(new ActionEvent()));
     }
 
     /**
@@ -86,6 +88,32 @@ public class ConcursoController {
         usuario = text.toUpperCase();
         tv_usuario.setText("JUGANDO: " + usuario);
     }
+
+    @FXML
+    void actReiniciarJuego(ActionEvent event) {
+        // Reiniciar el juego como si se presionara "Jugar"
+        if(AlertUtils.showConfirmacion("Reiniciar el juego", "Vas a reiniciar el juego. ¿Estas seguro?")) {
+            actJugar(event);
+        }
+    }
+
+    @FXML
+    void actCambiarUsuario(ActionEvent event) {
+        if(AlertUtils.showConfirmacion("Cambiar de Usuario", "Vas a salir del juego. ¿Estas seguro?")) {
+            try {
+                // Cerrar la pantalla actual
+                Stage stage = (Stage) btn_jugar.getScene().getWindow();
+                stage.close();
+
+                // Mostrar la pantalla de inicio
+                new InicioController().showEstaPantalla(new Stage());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     /**
      * Método que se ejecuta al hacer clic en el botón "Jugar".
