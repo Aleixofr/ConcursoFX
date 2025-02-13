@@ -17,6 +17,11 @@ public class Clasificacion implements  DataBaseOperations{
         this.valor = valor;
     }
 
+    public Clasificacion(String usuario, String valor) {
+        this.usuario = usuario;
+        this.valor = valor;
+    }
+
     public Clasificacion() {
     }
 
@@ -49,10 +54,13 @@ public class Clasificacion implements  DataBaseOperations{
         this.valor = valor;
     }
 
-    //Override DataBaseOperations
+
+    /**
+     * Bloque: {@link DataBaseOperations} conexiones a base de datos
+     */
 
     @Override
-    public boolean insertarResultado(String usuario, int valor) {
+    public boolean insertarResultado(Clasificacion clasificacion) {
 
         // Conectar a la base de datos y realizar la inserción
         try (Connection conn = DriverManager.getConnection(DDBBQuery.URL_DATABASE.get())) {
@@ -61,8 +69,8 @@ public class Clasificacion implements  DataBaseOperations{
              * @Query QUERY_INSERT_RESULTADO
              */
             try (PreparedStatement pstmt = conn.prepareStatement(DDBBQuery.QUERY_INSERT_RESULTADO.get())) {
-                pstmt.setString(1, usuario);
-                pstmt.setString(2, String.valueOf(valor));
+                pstmt.setString(1, clasificacion.usuario);
+                pstmt.setString(2, clasificacion.getValor());
 
                 // Ejecutar la inserción
                 int filasAfectadas = pstmt.executeUpdate();

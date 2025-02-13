@@ -221,10 +221,11 @@ public class ConcursoController {
      * Inserta un nuevo resultado en la base de datos y actualiza la lista de clasificación.
      */
     private void actualizarClasificacion(String usuario, int puntos) {
-        Clasificacion clasificacion = new Clasificacion();
+        Clasificacion clasificacion = new Clasificacion(usuario, String.valueOf(puntos));
+
 
         // Intentar insertar en la base de datos
-        boolean resultadoInsertado = clasificacion.insertarResultado(usuario, puntos);
+        boolean resultadoInsertado = clasificacion.insertarResultado(clasificacion);
 
         if (resultadoInsertado) {
             System.out.println("Resultado insertado correctamente.");

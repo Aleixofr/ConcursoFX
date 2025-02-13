@@ -38,7 +38,10 @@ class ClasificacionTest {
 
     @Test
     void testInsertarResultado() {
-        boolean resultado = clasificacion.insertarResultado("usuarioTest", 100);
+
+        Clasificacion clasificacion = new Clasificacion("usuarioTest", "100");
+
+        boolean resultado = clasificacion.insertarResultado(clasificacion);
         assertTrue(resultado, "El resultado debería insertarse correctamente en la base de datos.");
 
         try (Statement stmt = connection.createStatement();
