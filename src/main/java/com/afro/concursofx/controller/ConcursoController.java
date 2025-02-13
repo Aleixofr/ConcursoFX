@@ -14,8 +14,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import reports.ReportGenerating;
+import reports.ReportGenerating_Filtro;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.List;
 
 /**
@@ -232,6 +235,37 @@ public class ConcursoController {
             iniciarClasificacion(); // Refrescar la lista
         } else {
             System.out.println("Error al insertar resultado en la base de datos.");
+        }
+    }
+
+    @FXML
+    public void actGenerarInforme(ActionEvent actionEvent) {
+        // Establecer la conexión a la base de datos
+        Connection conn = ReportGenerating.connect();
+
+        if (conn != null) {
+            // Si la conexión es exitosa, generar el reporte
+            ReportGenerating reportGenerating = new ReportGenerating();
+            reportGenerating.generateReport(conn);
+        } else {
+            // Si no se puede conectar a la base de datos, mostrar un mensaje
+            System.out.println("Error al conectar a la base de datos.");
+        }
+    }
+
+    @FXML
+    public void actGenerarInformeUsuario(ActionEvent actionEvent) {
+
+        // Establecer la conexión a la base de datos
+        Connection conn = ReportGenerating_Filtro.connect();
+
+        if (conn != null) {
+            // Si la conexión es exitosa, generar el reporte
+            ReportGenerating_Filtro reportGenerating = new ReportGenerating_Filtro();
+            reportGenerating.generateReport(conn, usuario);
+        } else {
+            // Si no se puede conectar a la base de datos, mostrar un mensaje
+            System.out.println("Error al conectar a la base de datos.");
         }
     }
 }

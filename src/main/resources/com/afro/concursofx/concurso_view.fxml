@@ -23,6 +23,9 @@
                 <Menu text="Opciones">
                     <MenuItem onAction="#actReiniciarJuego" text="Reiniciar" accelerator="Ctrl+N" />
                     <MenuItem onAction="#actCambiarUsuario" text="Cambiar Usuario" accelerator="Ctrl+U"/>
+                    <MenuItem onAction="#actGenerarInforme" text="Generar Informe"/>
+                    <MenuItem onAction="#actGenerarInformeUsuario" text="Generar Informe de Usuario"/>
+
                 </Menu>
             </menus>
         </MenuBar>

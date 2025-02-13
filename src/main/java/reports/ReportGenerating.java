@@ -13,28 +13,27 @@ import com.itextpdf.layout.property.UnitValue;
 import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;;
 
-/**
- * Clase que genera un report con la libreria iText, para obtener
- * los datos de un usuario concreto en la tabla USER
- *
- */
-public class ReportGenerating_Filtro {
-    public void generateReport(Connection conn, String nombre) {
+public class ReportGenerating {
+    public void generateReport(Connection conn) {
         try {
 
             // Define the output file path
-            String filePath = "REPORTS/reporte_" + nombre + ".pdf";
+            String filePath = "REPORTS/reporte_resultados.pdf";
 
             // Crea un documento PDF y un PdfDocument asociado
-            PdfWriter writer = new PdfWriter(new FileOutputStream(filePath));
+            PdfWriter writer = new PdfWriter(Files.newOutputStream(Paths.get(filePath)));
             PdfDocument pdfDoc = new PdfDocument(writer);
             Document document = new Document(pdfDoc);
 
             // Título del reporte
-            Paragraph title = new Paragraph("REPORTE DEL USUARIO (Nombre = '" + nombre + "')")
+            Paragraph title = new Paragraph("REPORTE DE TODOS LOS RESULTADOS DE NUESTRA APLICACION")
                     .setFontSize(16);
             title.setTextAlignment(TextAlignment.CENTER);
             document.add(title);
@@ -43,23 +42,21 @@ public class ReportGenerating_Filtro {
             // Crear la tabla con 2 columnas
             Table table = new Table(2); // 2 columnas
 
-            // Establecer el ancho de la tabla al 100% del espacio disponible
-            table.setWidth(UnitValue.createPercentValue(100));
+            // Establecer los anchos de las columnas en porcentaje
+            table.setWidth(UnitValue.createPercentValue(100)); // Hace que la tabla ocupe el 100% del ancho disponible
 
             // Agregar los encabezados de la tabla
             table.addCell(new Cell().add(new Paragraph("USUARIO")).setTextAlignment(TextAlignment.CENTER));
             table.addCell(new Cell().add(new Paragraph("PUNTOS")).setTextAlignment(TextAlignment.CENTER));
 
-            // Consulta SQL filtrada para obtener solo los usuarios con el nombre proporcionado
-            try (PreparedStatement pstmt = conn.prepareStatement(DDBBQuery.QUERY_SELECT_W_USUARIO_RESULTADO.get())) {
-                pstmt.setString(1, nombre);
+            // Obtener los datos de la base de datos
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(DDBBQuery.QUERY_SELECT_ALL_RESULTADO.get());
 
-                ResultSet rs = pstmt.executeQuery();
-                // Agregar los datos de la base de datos a la tabla
-                while (rs.next()) {
-                    table.addCell(new Cell().add(new Paragraph(rs.getString("USUARIO"))).setTextAlignment(TextAlignment.LEFT));
-                    table.addCell(new Cell().add(new Paragraph(rs.getString("VALOR"))).setTextAlignment(TextAlignment.LEFT));
-                }
+            // Agregar los datos de la base de datos a la tabla
+            while (rs.next()) {
+                table.addCell(new Cell().add(new Paragraph(rs.getString("USUARIO"))).setTextAlignment(TextAlignment.LEFT));
+                table.addCell(new Cell().add(new Paragraph(rs.getString("VALOR"))).setTextAlignment(TextAlignment.LEFT));
             }
 
             // Añadir la tabla al documento PDF
@@ -68,7 +65,7 @@ public class ReportGenerating_Filtro {
             // Cerrar el documento
             document.close();
 
-            System.out.println("Reporte generado exitosamente para " + nombre);
+            System.out.println("Reporte generado exitosamente.");
 
             // Obtener la ruta absoluta del archivo
             String absolutePath = Paths.get(filePath).toAbsolutePath().toString();
@@ -80,15 +77,17 @@ public class ReportGenerating_Filtro {
                 Desktop.getDesktop().open(folder);  // Abre la carpeta en el explorador de archivos
             }
 
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
 
+    }
     // Método para establecer la conexión con la base de datos SQLite
     public static Connection connect() {
         try {
-            // Asegúrate de tener el driver JDBC de SQLite en tu proyecto
+            // Asegúrate de tener el driver JDBC de SQLite en tu proyecto maven
+            //  String url = "jdbc:sqlite:data/bbdd_prueba.db";
             Connection conn = DriverManager.getConnection(DDBBQuery.URL_DATABASE.get());
             return conn;
         } catch (Exception e) {
@@ -98,12 +97,11 @@ public class ReportGenerating_Filtro {
     }
 
     public static void main(String[] args) {
-        // Conectar a la base de datos y generar el reporte para un nombre específico
-        String nombre = "AA";  // Cambia el valor aquí para filtrar por diferentes nombres
+        // Conectar a la base de datos y generar el reporte
         Connection conn = connect();
         if (conn != null) {
-            ReportGenerating_Filtro generator = new ReportGenerating_Filtro();
-            generator.generateReport(conn, nombre);
+            ReportGenerating generator = new ReportGenerating();
+            generator.generateReport(conn);
         } else {
             System.out.println("Error al conectar a la base de datos.");
         }
